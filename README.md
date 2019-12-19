@@ -70,4 +70,40 @@
     (ROWS | RANGE) BETWEEN CURRENT ROW AND (CURRENT ROW | (UNBOUNDED | [num]) FOLLOWING)
     (ROWS | RANGE) BETWEEN [num] FOLLOWING AND (UNBOUNDED | [num]) FOLLOWING
 
+## Postgres继承
 
+> 继承是面向对象数据库中的概念。它展示了数据库设计的新的可能性。
+> 我们创建两个表：表cities和表capitals。自然地，首都也是城市，所以我们需要有某种方式能够在列举所有城市的时候也隐式地包含首都。
+
+    CREATE TABLE capitals (
+      name       text,
+      population real,
+      altitude   int,    -- (in ft)
+      state      char(2)
+    );
+
+    CREATE TABLE non_capitals (
+      name       text,
+      population real,
+      altitude   int     -- (in ft)
+    );
+
+    CREATE VIEW cities AS
+      SELECT name, population, altitude FROM capitals
+        UNION
+      SELECT name, population, altitude FROM non_capitals;
+> 这个模式对于查询而言工作正常，但是当我们需要更新一些行时它就变得不好用了。
+
+    CREATE TABLE cities (
+      name       text,
+      population real,
+      altitude   int     -- (in ft)
+    );
+
+    CREATE TABLE capitals (
+      state      char(2)
+    ) INHERITS (cities);
+   
+> 在这种情况下，一个capitals的行从它的父亲cities继承了所有列（name、population和altitude）。列name的类型是text，一种用于变长字符串的本地PostgreSQL类型。州首都有一个附加列state用于显示它们的州。在PostgreSQL中，一个表可以从0个或者多个表继承。
+
+### 注意：尽管继承很有用，但是它还未与唯一约束或外键集成，这也限制了它的可用性。
