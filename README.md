@@ -51,3 +51,23 @@
 > + 当一个查询涉及到多个窗口函数时，可以将每一个分别写在一个独立的OVER子句中。但如果多个函数要求同一个窗口行为时，这种做法是冗余的而且容易出错的。替代方案是，每一个窗口行为可以被放在一个命名的WINDOW子句中，然后在OVER中引用它。
 
     select X , X() over (partition by X ...) from XX;
+    
+>> + 窗口函数
+
+    FIRST_VALUE：取分组内排序后，截止到当前行，第一个值 
+    LAST_VALUE： 取分组内排序后，截止到当前行，最后一个值 
+    LEAD(col,n,DEFAULT) ：用于统计窗口内往下第n行值。第一个参数为列名，第二个参数为往下第n行（可选，默认为1），第三个参数为默认值（当往下第n行为NULL时候，取默认值，如不指定，则为NULL） 
+    LAG(col,n,DEFAULT) ：与lead相反，用于统计窗口内往上第n行值。第一个参数为列名，第二个参数为往上第n行（可选，默认为1），第三个参数为默认值（当往上第n行为NULL时候，取默认值，如不指定，则为NULL）
+
+>> + OVER从句
+
+>>> + 1、使用标准的聚合函数COUNT、SUM、MIN、MAX、AVG 
+>>> + 2、使用PARTITION BY语句，使用一个或者多个原始数据类型的列 
+>>> + 3、使用PARTITION BY与ORDER BY语句，使用一个或者多个数据类型的分区或者排序列
+>>> + 4、使用窗口规范，窗口规范支持以下格式：
+
+    (ROWS | RANGE) BETWEEN (UNBOUNDED | [num]) PRECEDING AND ([num] PRECEDING | CURRENT ROW | (UNBOUNDED | [num]) FOLLOWING)
+    (ROWS | RANGE) BETWEEN CURRENT ROW AND (CURRENT ROW | (UNBOUNDED | [num]) FOLLOWING)
+    (ROWS | RANGE) BETWEEN [num] FOLLOWING AND (UNBOUNDED | [num]) FOLLOWING
+
+
