@@ -8,7 +8,7 @@
 
 > + 表被分组成数据库，一个由单个PostgreSQL服务器实例管理的数据库集合组成一个数据库集簇。
 
-## Postgres数据类型
+## Postgres数据类型 ---> [详细介绍](https://www.runoob.com/postgresql/postgresql-data-type.html)
 
 > + PostgreSQL支持标准的SQL类型int、smallint、real、double precision、char(N)、varchar(N)、date、time、timestamp和interval，还支持其他的通用功能的类型和丰富的几何类型。PostgreSQL中可以定制任意数量的用户定义数据类型。因而类型名并不是语法关键字，除了SQL标准要求支持的特例外.
 > + varchar(80)指定了一个可以存储最长 80 个字符的任意字符串的数据类型。int是普通的整数类型。real是一种用于存储单精度浮点数的类型。
@@ -143,4 +143,6 @@
 
     模式类似于操作系统层的目录，但是模式不能嵌套。
     
-    create schema mySchema;
+    创建schema：  create schema mySchema;       
+    删除一个为空的模式（其中的所有对象已经被删除）：  drop schema myschema;
+    删除一个模式以及其中包含的所有对象：  drop schema myschema cascade;
