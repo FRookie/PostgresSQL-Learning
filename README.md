@@ -107,3 +107,40 @@
 > 在这种情况下，一个capitals的行从它的父亲cities继承了所有列（name、population和altitude）。列name的类型是text，一种用于变长字符串的本地PostgreSQL类型。州首都有一个附加列state用于显示它们的州。在PostgreSQL中，一个表可以从0个或者多个表继承。
 
 ### 注意：尽管继承很有用，但是它还未与唯一约束或外键集成，这也限制了它的可用性。
+
+
+## 个人语句练习
+
+    select * from public."Test";
+    alter table public."Test" add column isAdmin boolean default false;
+    alter table public."Test" add column birthdaysss timestamp ;
+    alter table public."Test" rename column birthdaysss to birthday;
+    //修改表名时，如果新表名不加引号，则默认首字母小写，否则按照引号内的定义大小写
+    alter table public."test" rename to "Test"; 
+    
+> 定义枚举类型
+
+    create type week as Enum('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday');
+    alter table public."Test" add column week_day week default 'Monday'; 
+    insert into public."Test" values (5,'ss',1,true,current_date,'Friday');
+    insert into public."Test" values (6,'ss',1,true,'2019/12/27','Friday');
+    
+> PostgreSQL 模式（SCHEMA）
+
+    PostgreSQL 模式（SCHEMA）可以看着是一个表的集合。
+
+    一个模式可以包含视图、索引、据类型、函数和操作符等。
+
+    相同的对象名称可以被用于不同的模式中而不会出现冲突，例如 schema1 和 myschema 都可以包含名为 mytable 的表。
+
+    使用模式的优势：
+
+       1. 允许多个用户使用一个数据库并且不会互相干扰。
+
+       2. 将数据库对象组织成逻辑组以便更容易管理。
+
+       3. 第三方应用的对象可以放在独立的模式中，这样它们就不会与其他对象的名称发生冲突。
+
+    模式类似于操作系统层的目录，但是模式不能嵌套。
+    
+    create schema mySchema;
