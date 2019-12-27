@@ -146,3 +146,34 @@
     创建schema：  create schema mySchema;       
     删除一个为空的模式（其中的所有对象已经被删除）：  drop schema myschema;
     删除一个模式以及其中包含的所有对象：  drop schema myschema cascade;
+
+> PostgreSQL WITH 子句
+
+>> 在 PostgreSQL 中，WITH 子句提供了一种编写辅助语句的方法，以便在更大的查询中使用。
+
+>> WITH 子句有助于将复杂的大型查询分解为更简单的表单，便于阅读。这些语句通常称为通用表表达式（Common Table Express， CTE），也可以当做一个为查询而存在的临时表。
+
+>> WITH 子句是在多次执行子查询时特别有用，允许我们在查询中通过它的名称(可能是多次)引用它。
+
+>> WITH 子句在使用前必须先定义
+
+>> WITH 查询的基础语法如下：
+
+    WITH
+       name_for_summary_data AS (
+          SELECT Statement)
+       SELECT columns
+       FROM name_for_summary_data
+       WHERE conditions <=> (
+          SELECT column
+          FROM name_for_summary_data)
+       [ORDER BY columns]
+       
+>> name_for_summary_data 是 WITH 子句的名称，name_for_summary_data 可以与现有的表名相同，并且具有优先级。
+
+>> 可以在 WITH 中使用数据 INSERT, UPDATE 或 DELETE 语句，允许您在同一个查询中执行多个不同的操作。
+
+>　WITH 递归
+＞＞　在 WITH 子句中可以使用自身输出的数据。
+
+＞＞　公用表表达式 (CTE) 具有一个重要的优点，那就是能够引用其自身，从而创建递归 CTE。递归 CTE 是一个重复执行初始 CTE 以返回数据子集直到获取完整结果集的公用表表达式。
