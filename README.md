@@ -118,14 +118,14 @@
     //修改表名时，如果新表名不加引号，则默认首字母小写，否则按照引号内的定义大小写
     alter table public."test" rename to "Test"; 
     
-> 定义枚举类型
+### 定义枚举类型
 
     create type week as Enum('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday');
     alter table public."Test" add column week_day week default 'Monday'; 
     insert into public."Test" values (5,'ss',1,true,current_date,'Friday');
     insert into public."Test" values (6,'ss',1,true,'2019/12/27','Friday');
     
-> PostgreSQL 模式（SCHEMA）
+### PostgreSQL 模式（SCHEMA）
 
     PostgreSQL 模式（SCHEMA）可以看着是一个表的集合。
 
@@ -147,7 +147,7 @@
     删除一个为空的模式（其中的所有对象已经被删除）：  drop schema myschema;
     删除一个模式以及其中包含的所有对象：  drop schema myschema cascade;
 
-> PostgreSQL WITH 子句
+### PostgreSQL WITH 子句
 
 >> 在 PostgreSQL 中，WITH 子句提供了一种编写辅助语句的方法，以便在更大的查询中使用。
 
@@ -177,3 +177,29 @@
 
 >> 在 WITH 子句中可以使用自身输出的数据。
 >> 公用表表达式 (CTE) 具有一个重要的优点，那就是能够引用其自身，从而创建递归 CTE。递归 CTE 是一个重复执行初始 CTE 以返回数据子集直到获取完整结果集的公用表表达式。
+
+### PostgreSQL HAVING 子句
+
+> HAVING 子句可以让我们筛选分组后的各组数据。
+
+> WHERE 子句在所选列上设置条件，而 HAVING 子句则在由 GROUP BY 子句创建的分组上设置条件。
+
+> 语法
+
+>> 下面是 HAVING 子句在 SELECT 查询中的位置：
+
+    SELECT
+    FROM
+    WHERE
+    GROUP BY
+    HAVING
+    ORDER BY
+    
+> HAVING 子句必须放置于 GROUP BY 子句后面，ORDER BY 子句前面，下面是 HAVING 子句在 SELECT 语句中基础语法：
+
+    SELECT column1, column2
+    FROM table1, table2
+    WHERE [ conditions ]
+    GROUP BY column1, column2
+    HAVING [ conditions ]
+    ORDER BY column1, column2
